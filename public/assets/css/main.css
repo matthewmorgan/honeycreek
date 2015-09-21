@@ -1957,6 +1957,9 @@
 
 	@media screen and (max-width: 736px) {
 
+		.fullwidthmobile {
+			width: 100%;
+		}
 		/* Basic */
 
 			body, input, textarea, select {
