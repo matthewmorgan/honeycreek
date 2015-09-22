@@ -2071,6 +2071,10 @@
 					width: auto;
 				}
 
+				.box .style1 {
+					width: 100%;
+				}
+
 		/* Wrappers */
 
 			.wrapper {
