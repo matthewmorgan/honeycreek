@@ -2120,7 +2120,7 @@
 	}
 
 .cloudinary_fileupload {
-	visibility: hidden;
+	/*visibility: hidden;*/
 }
 
 .progress_bar_wrapper {
