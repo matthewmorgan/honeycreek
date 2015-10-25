@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="assets/css/ie8.css"/><![endif]-->
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="assets/css/ie9.css"/><![endif]-->
+
 </head>
 <body>
 
@@ -114,7 +115,7 @@
 
             <p>Here are some photos and posts shared by members of the community.</p>
         </header>
-        <div class="container">
+        <div class="thumbnails container">
             <div class="row">
                 <div class="4u 12u(mobile)">
                     <article class="box style2">
@@ -147,29 +148,6 @@
                     </article>
                 </div>
             </div>
-            <!--<div class="row">-->
-            <!--<div class="4u 12u(mobile)">-->
-            <!--<article class="box style2">-->
-            <!--<a href="#" class="image featured"><img src="images/pic04.jpg" alt="" /></a>-->
-            <!--<h3><a href="#">Tempus dolore</a></h3>-->
-            <!--<p>Ornare nulla proin odio consequat.</p>-->
-            <!--</article>-->
-            <!--</div>-->
-            <!--<div class="4u 12u(mobile)">-->
-            <!--<article class="box style2">-->
-            <!--<a href="#" class="image featured"><img src="images/pic05.jpg" alt="" /></a>-->
-            <!--<h3><a href="#">Feugiat aliquam</a></h3>-->
-            <!--<p>Ornare nulla proin odio consequat.</p>-->
-            <!--</article>-->
-            <!--</div>-->
-            <!--<div class="4u 12u(mobile)">-->
-            <!--<article class="box style2">-->
-            <!--<a href="#" class="image featured"><img src="images/pic06.jpg" alt="" /></a>-->
-            <!--<h3><a href="#">Sed amet ornare</a></h3>-->
-            <!--<p>Ornare nulla proin odio consequat.</p>-->
-            <!--</article>-->
-            <!--</div>-->
-            <!--</div>-->
         </div>
         <footer>
             <p>Ready to register and share your thoughts?</p>
@@ -189,7 +167,7 @@
         <div>
             <div class="row">
                 <div class="12u">
-                    <form method="post" action="#">
+                    <form class="upload_form" method="post" action="#">
                         <div>
                             <div class="row">
                                 <div class="6u 12u(mobile)">
@@ -207,6 +185,27 @@
                             <div class="row">
                                 <div class="12u">
                                     <textarea name="message" id="message" placeholder="Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="4u 12u(mobile)" id ="photo1">
+                                    <input type="text" id="photo1" placeholder="Photo 1 here"/>
+                                </div>
+                                <div class="4u 12u(mobile)">
+                                    <img id="photo2"/>
+                                    <input type="text" id="photo2" placeholder="Photo 2 here"/>
+                                </div>
+                                <div class="4u 12u(mobile)">
+                                    <img id="photo3"/>
+                                    <input type="text" id="photo2" placeholder="Photo 3 here"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="12u photodropzone">
+                                    Drop your photo here!
+                                </div>
+                                <div class="progress_bar_wrapper">
+                                    <div class="progress_bar"></div>
                                 </div>
                             </div>
                             <div class="row 200%">
@@ -278,9 +277,28 @@
 <script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="assets/js/main.js"></script>
 <script>
-    cloudinary.cloudinary_js_config();
-    var cloudinary_cors = "http://" + request.headers.host + "/cloudinary_cors.html";
+    $.cloudinary.config({ cloud_name: 'hztzss4vs', api_key: '669137722153392'});
+
+    $('.upload_form').append($.cloudinary.unsigned_upload_tag("dz49gmc6",
+            {cloud_name: 'hztzss4vs'}))
+            .bind('cloudinarydone', function (e, data) {
+                $('.progress_bar').css('visibility', 'hidden');
+                $('.progress_bar').css('width', '0%');
+                $('#photo1').prepend($.cloudinary.image(data.result.public_id,
+                        {
+                            format: 'jpg', width: 300, height: 200,
+                            crop:   'thumb'
+                        }))
+            }
+    ).bind('cloudinaryprogress', function (e, data) {
+                $('.progress_bar').css('width',
+                        Math.round((data.loaded * 100.0) / data.total) + '%');
+            })
+            .bind('cloudinarystart', function (e, data) {
+                $('.progress_bar').css('visibility', 'visible');
+            })
 </script>
 
 </body>
+</html>
 </html>

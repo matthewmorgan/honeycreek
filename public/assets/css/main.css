@@ -2118,3 +2118,34 @@
 				}
 
 	}
+
+.cloudinary_fileupload {
+	visibility: hidden;
+}
+
+.progress_bar_wrapper {
+    width: 90%;
+    margin-right:20px;
+}
+.progress_bar {
+    height: 10px;
+    padding: 0;
+    /*margin: 0;*/
+    margin-bottom: 10px;
+    margin-left: 30px;
+    margin-top: 5px;
+    margin-right: 50px;
+    background-color: gray;
+    width: 0%;
+    visibility: hidden;
+}
+
+.photodropzone {
+    border: 1px solid gray;
+    height: 200px;
+    margin-left: 28px;
+    margin-top: 20px;
+    padding: 30px;
+    margin-right:50px;
+    width: 96%
+}
