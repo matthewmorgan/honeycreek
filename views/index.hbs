@@ -116,7 +116,7 @@
             <p>Here are some photos and posts shared by members of the community.</p>
         </header>
         <div class="thumbnails container">
-            <div class="row">
+            <div class="row" id="gallery-row-1">
                 <div class="4u 12u(mobile)">
                     <article class="box style2">
                         <a href="#" class="image featured"><img src="images/garden.jpg" alt=""/></a>
@@ -187,26 +187,13 @@
                                     <textarea name="message" id="message" placeholder="Message"></textarea>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="4u 12u(mobile)" id ="photo1">
-                                    <input type="text" id="photo1" placeholder="Photo 1 here"/>
-                                </div>
-                                <div class="4u 12u(mobile)">
-                                    <img id="photo2"/>
-                                    <input type="text" id="photo2" placeholder="Photo 2 here"/>
-                                </div>
-                                <div class="4u 12u(mobile)">
-                                    <img id="photo3"/>
-                                    <input type="text" id="photo2" placeholder="Photo 3 here"/>
-                                </div>
+
+                            <div class="upload_widget_wrapper">
+                                <div id="upload_widget_opener"></div>
                             </div>
                             <div class="row">
-                                <div class="12u photodropzone">
-                                    Drop your photo here!
-                                </div>
-                                <div class="progress_bar_wrapper">
-                                    <div class="progress_bar"></div>
-                                </div>
+                                <div class="hidden_thumbnail_gallery"></div>
+                                <div class="row 12u" id="gallery-row-2"></div>
                             </div>
                             <div class="row 200%">
                                 <div class="12u">
@@ -229,25 +216,10 @@
                                 class="label">Twitter</span></a></li>
                         <li><a href="https://www.facebook.com" class="icon fa-facebook"><span
                                 class="label">Facebook</span></a></li>
-                        <!--<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>-->
-                        <!--<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>-->
-                        <!--<li><a href="#" class="icon fa-tumblr"><span class="label">Tumblr</span></a></li>-->
                         <li><a href="https://plus.google.com" class="icon fa-google-plus"><span
                                 class="label">Google+</span></a></li>
                         <li><a href="https://instagram.com/" class="icon fa-instagram"><span
                                 class="label">Instagram</span></a></li>
-                        <!--<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>-->
-                        <!--
-			<li><a href="#" class="icon fa-rss"><span>RSS</span></a></li>
-
-			<li><a href="#" class="icon fa-foursquare"><span>Foursquare</span></a></li>
-			<li><a href="#" class="icon fa-skype"><span>Skype</span></a></li>
-			<li><a href="#" class="icon fa-soundcloud"><span>Soundcloud</span></a></li>
-			<li><a href="#" class="icon fa-youtube"><span>YouTube</span></a></li>
-			<li><a href="#" class="icon fa-blogger"><span>Blogger</span></a></li>
-			<li><a href="#" class="icon fa-flickr"><span>Flickr</span></a></li>
-			<li><a href="#" class="icon fa-vimeo"><span>Vimeo</span></a></li>
-			-->
                     </ul>
                     <hr/>
                 </div>
@@ -276,27 +248,35 @@
 <!--[if lte IE 8]>
 <script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="assets/js/main.js"></script>
-<script>
-    $.cloudinary.config({ cloud_name: 'hztzss4vs', api_key: '669137722153392'});
 
-    $('.upload_form').append($.cloudinary.unsigned_upload_tag("dz49gmc6",
-            {cloud_name: 'hztzss4vs'}))
-            .bind('cloudinarydone', function (e, data) {
-                $('.progress_bar').css('visibility', 'hidden');
-                $('.progress_bar').css('width', '0%');
-                $('#photo1').prepend($.cloudinary.image(data.result.public_id,
-                        {
-                            format: 'jpg', width: 300, height: 200,
-                            crop:   'thumb'
-                        }))
-            }
-    ).bind('cloudinaryprogress', function (e, data) {
-                $('.progress_bar').css('width',
-                        Math.round((data.loaded * 100.0) / data.total) + '%');
-            })
-            .bind('cloudinarystart', function (e, data) {
-                $('.progress_bar').css('visibility', 'visible');
-            })
+<script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    var buildArticle = function (imageHtml, text) {
+        return '<div class="4u 12u(mobile)">' +
+                '<article class="box style2">' +
+                '<a href="#" class="image featured">' + imageHtml + '</a>' +
+//                '<h3><a href="#">' + caption + '</a></h3>' +
+                '<p class="remove-shadow">' + text + '</p></article></div>';
+    };
+
+    $('#upload_widget_opener').cloudinary_upload_widget(
+            {
+                cloud_name: 'hztzss4vs', upload_preset: 'dz49gmc6', 'folder': 'pending',
+                thumbnails: '.hidden_thumbnail_gallery', thumbnail_transformation: { width: 383, height: 383, crop: 'fill' }
+            },
+            function (error, result) {
+                //hack to rearrange the html for the image gallery from cloudinary defaults...
+                var galleryHtml = "";
+                $('.cloudinary-thumbnails .cloudinary-thumbnail').each(function () {
+                    var imageHtml =$(this).html();
+                    galleryHtml+=(buildArticle(imageHtml, "Sample narrative to go along with the picture."))
+                });
+
+                console.log(galleryHtml);
+                $('#gallery-row-2').html(galleryHtml);
+            });
 </script>
 
 </body>

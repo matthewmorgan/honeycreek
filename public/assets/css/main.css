@@ -2149,3 +2149,23 @@
     margin-right:50px;
     width: 96%
 }
+
+#upload_widget_opener {
+	width: 100%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.upload_widget_wrapper {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	height: 80px;
+}
+
+.hidden_thumbnail_gallery {
+	display:none;
+}
+
+.remove-shadow {
+	text-shadow: none;
+}
