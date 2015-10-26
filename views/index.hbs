@@ -161,7 +161,6 @@
     <article id="contact" class="container 75%">
         <header>
             <h2>Register your details here.</h2>
-
             <p>Registration lets you post photos and comments. Your email will be your login.</p>
         </header>
         <div>
@@ -253,28 +252,38 @@
 
 <script type="text/javascript">
 
+    var openAlert = function(source){
+        console.log('source ',source);
+//        alert('Here\'s an alert!');
+    };
     var buildArticle = function (imageHtml, text) {
-        return '<div class="4u 12u(mobile)">' +
+        var imageId = 'img-'+(imageHtml.match("[a-z0-9]+\.(jpg|png|bmp|gif|tif)")[0].split('.')[0]);
+        $('#gallery-row-2').on('click', '#'+imageId, function(evt){
+            evt.preventDefault();
+            console.log('source ',imageId);
+        });
+        return  '<div class="4u 12u(mobile)">' +
                 '<article class="box style2">' +
-                '<a href="#" class="image featured">' + imageHtml + '</a>' +
-//                '<h3><a href="#">' + caption + '</a></h3>' +
-                '<p class="remove-shadow">' + text + '</p></article></div>';
+                '<div class="image featured">' + imageHtml + '</div>' +
+                '<a href="" id="'+imageId+'" class="remove-shadow">' + text + '</a></article></div>';
+
     };
 
     $('#upload_widget_opener').cloudinary_upload_widget(
             {
                 cloud_name: 'hztzss4vs', upload_preset: 'dz49gmc6', 'folder': 'pending',
-                thumbnails: '.hidden_thumbnail_gallery', thumbnail_transformation: { width: 383, height: 383, crop: 'fill' }
+                cropping: 'server', sources: ['local', 'url'],
+                thumbnails: '.hidden_thumbnail_gallery',
+                thumbnail_transformation: { width: 383, height: 383, crop: 'fill' }
             },
             function (error, result) {
-                //hack to rearrange the html for the image gallery from cloudinary defaults...
+                //override the image gallery from cloudinary defaults...
+                console.log(result);
                 var galleryHtml = "";
                 $('.cloudinary-thumbnails .cloudinary-thumbnail').each(function () {
                     var imageHtml =$(this).html();
-                    galleryHtml+=(buildArticle(imageHtml, "Sample narrative to go along with the picture."))
+                    galleryHtml+=(buildArticle(imageHtml, "Click here to add a caption"))
                 });
-
-                console.log(galleryHtml);
                 $('#gallery-row-2').html(galleryHtml);
             });
 </script>
