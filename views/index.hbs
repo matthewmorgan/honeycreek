@@ -252,21 +252,16 @@
 
 <script type="text/javascript">
 
-    var openAlert = function(source){
-        console.log('source ',source);
-//        alert('Here\'s an alert!');
-    };
     var buildArticle = function (imageHtml, text) {
         var imageId = 'img-'+(imageHtml.match("[a-z0-9]+\.(jpg|png|bmp|gif|tif)")[0].split('.')[0]);
-        $('#gallery-row-2').on('click', '#'+imageId, function(evt){
-            evt.preventDefault();
-            console.log('source ',imageId);
+        $('#gallery-row-2').on('click', '#'+imageId, function(){
+            alert(imageId);
+
         });
         return  '<div class="4u 12u(mobile)">' +
                 '<article class="box style2">' +
                 '<div class="image featured">' + imageHtml + '</div>' +
                 '<a href="" id="'+imageId+'" class="remove-shadow">' + text + '</a></article></div>';
-
     };
 
     $('#upload_widget_opener').cloudinary_upload_widget(
