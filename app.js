@@ -33,16 +33,9 @@ var allowCrossDomain = function(req, res, next) {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-//// register a simple html view engine, instead of using a fancy view rendering system
-//app.set('view engine', function(filename, options, callback){
-//  fs.readFile(filename, 'utf8', function(err, str){
-//    if (err) return callback(err);
-//    callback(null, str);
-//  });
-//});
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(allowCrossDomain);
+app.use(favicon(__dirname + '/public/favicon.ico'));
+//app.use(allowCrossDomain);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
