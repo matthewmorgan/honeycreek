@@ -23,7 +23,6 @@ var attachUploadWidget = function () {
         tags:                     'user-' + userId
       },
       function (error, result) {
-        console.log('cloudinary upload result ', result);
         var galleryHtml = "";
         $('.cloudinary-thumbnails .cloudinary-thumbnail').each(function () {
           var imageHtml = $(this).html();
@@ -39,17 +38,18 @@ var revealImageUploadButton = function () {
 };
 
 var storeUserData = function (data, callback) {
-  console.log('storing user data in DB ', data);
-  var resultObject = {_id: 'blahblahblah'};
   superagent
       .post('http://honey-server.apps.dulcetsoftware.com/user')
       .send(data)
       .end(function (err, result) {
         if (err) throw err;
-        console.log(result);
         callback(result);
       })
 
+};
+
+var hideRegistrationForm = function(){
+  $('.fadable').fadeOut();
 };
 
 var attachFormHandler = function () {
@@ -59,9 +59,9 @@ var attachFormHandler = function () {
     $("#contact-form").serializeArray().map(function(x){data[x.name] = x.value;});
 
     storeUserData(data, function (result) {
-      console.log('result from insert ',result);
       userId = JSON.parse(result.text);
       attachUploadWidget();
+      hideRegistrationForm();
       revealImageUploadButton();
     })
   });
@@ -75,7 +75,6 @@ var attachFormHandler = function () {
 
 $(document).ready(function () {
 
-  //attachUploadWidget();
   attachFormHandler();
 
 });

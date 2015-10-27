@@ -2173,3 +2173,7 @@
 .margin-left-minus5px {
 	margin-left: -5px;
 }
+
+.align-left {
+	text-align:left;
+}
