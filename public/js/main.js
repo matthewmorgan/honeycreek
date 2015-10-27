@@ -1,6 +1,6 @@
 'use strict';
 var userId = 'unknown';
-
+var isSubmitting = false;
 
 var buildArticle = function (imageHtml, text) {
   var imageId = 'img-' + (imageHtml.match("[a-z0-9]+\.(jpg|png|bmp|gif|tif)")[0].split('.')[0]);
@@ -42,7 +42,10 @@ var storeUserData = function (data, callback) {
       .post('http://honey-server.apps.dulcetsoftware.com/user')
       .send(data)
       .end(function (err, result) {
-        if (err) throw err;
+        if (err) {
+          alert('There was an error storing your information!');
+          throw err;
+        };
         callback(result);
       })
 
@@ -55,15 +58,18 @@ var hideRegistrationForm = function(){
 var attachFormHandler = function () {
   $('#contact').submit(function (event) {
     event.preventDefault();
-    var data = {};
-    $("#contact-form").serializeArray().map(function(x){data[x.name] = x.value;});
+    if (!isSubmitting){
+      var data = {};
+      $("#contact-form").serializeArray().map(function(x){data[x.name] = x.value;});
 
-    storeUserData(data, function (result) {
-      userId = JSON.parse(result.text);
-      attachUploadWidget();
-      hideRegistrationForm();
-      revealImageUploadButton();
-    })
+      storeUserData(data, function (result) {
+        userId = JSON.parse(result.text);
+        attachUploadWidget();
+        hideRegistrationForm();
+        revealImageUploadButton();
+        isSubmitting=false;
+      })
+    }
   });
 
 
