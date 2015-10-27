@@ -29,6 +29,8 @@ var attachUploadWidget = function () {
           galleryHtml += (buildArticle(imageHtml, "Click here to add a caption"))
         });
         $('.gallery-row').html(galleryHtml);
+        $('#photomessage').text("Thanks for sharing your photos!");
+        $('.cloudinary-button').text('Upload more images!');
       });
   $('.cloudinary-button').text('Upload your images!');
 };
