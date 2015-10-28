@@ -1,4 +1,5 @@
 'use strict';
+
 var userId = 'unknown';
 var isSubmitting = false;
 
@@ -39,6 +40,10 @@ var revealImageUploadButton = function () {
   $('.upload_widget_wrapper').removeClass('hidden');
 };
 
+var validateFormData = function(){
+  return true;
+};
+
 var storeUserData = function (data, callback) {
   superagent
       .post('http://honey-server.apps.dulcetsoftware.com/user')
@@ -60,11 +65,12 @@ var hideRegistrationForm = function(){
 var attachFormHandler = function () {
   $('#contact').submit(function (event) {
     event.preventDefault();
-    if (!isSubmitting){
+    if (!isSubmitting && validateFormData()){
       var data = {};
       $("#contact-form").serializeArray().map(function(x){data[x.name] = x.value;});
 
       storeUserData(data, function (result) {
+        console.log('result ', result);
         userId = JSON.parse(result.text);
         attachUploadWidget();
         hideRegistrationForm();
