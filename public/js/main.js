@@ -5,15 +5,15 @@ var isSubmitting = false;
 
 
 var updatePhotoCaption = function(imageId, captionText){
-  let captionBox = $('.gallery-row').find('#caption-'+imageId);
+  var captionBox = $('.gallery-row').find('#caption-'+imageId);
   captionBox.fadeTo("fast", 0.33);
-  let public_id = imageId.split('-')[1],
+  var public_id = imageId.split('-')[1],
       tags = [
         'user-'+userId,
         'caption-'+captionText
       ];
 
-  let paramString = '?public_id='+public_id+'&tags='+encodeURIComponent(tags);
+  var paramString = '?public_id='+public_id+'&tags='+encodeURIComponent(tags);
 
   superagent
   .put('http://honey-server.apps.dulcetsoftware.com/cloudinary/updatecaption'+paramString)
@@ -85,7 +85,7 @@ var hideRegistrationForm = function(){
 };
 
 var attachFormHandler = function () {
-  $('#form-submit-button').click(function (event) {
+  $('#contact-form').submit(function (event) {
     event.preventDefault();
     if (!isSubmitting && validateFormData()){
       var data = {};
