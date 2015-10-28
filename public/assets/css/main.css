@@ -2159,7 +2159,7 @@
 .upload_widget_wrapper {
 	padding-top: 20px;
 	padding-bottom: 20px;
-	height: 80px;
+	height: auto;
 }
 
 .hidden{

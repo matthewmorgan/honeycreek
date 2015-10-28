@@ -3,15 +3,35 @@
 var userId = 'unknown';
 var isSubmitting = false;
 
+
+var updatePhotoCaption = function(imageId, captionText){
+  let public_id = imageId,
+      tags = [
+        'user-'+userId,
+        'caption-'+captionText
+      ];
+
+  let paramString = '?public_id='+public_id+'&tags='+encodeURIComponent(tags);
+
+  superagent
+  .patch('http://honey-server.apps.dulcetsoftware.com/cloudinary/updatecaption'+paramString)
+  .end((err, result) => {
+        if (err) throw err;
+        console.log('caption '+captionText+' updated.');
+      })
+};
+
+
 var buildArticle = function (imageHtml, text) {
   var imageId = 'img-' + (imageHtml.match("[a-z0-9]+\.(jpg|png|bmp|gif|tif)")[0].split('.')[0]);
-  $('.gallery-row').on('click', '#' + imageId, function () {
-    alert(imageId);
+  $('.gallery-row').on('change', '#caption-' + imageId, function () {
+    var captionText=$('#caption-'+imageId).val().trim();
+    updatePhotoCaption(imageId, captionText);
   });
   return '<div class="4u 12u(mobile)">' +
       '<article class="box style2">' +
       '<div class="image featured">' + imageHtml + '</div>' +
-      '<a id="' + imageId + '" class="remove-shadow">' + text + '</a></article></div>';
+      '<textarea id="caption-' + imageId + '" style="resize:vertical" placeholder="add a caption!"></textarea></article></div>';
 };
 
 var attachUploadWidget = function () {
@@ -27,7 +47,7 @@ var attachUploadWidget = function () {
         var galleryHtml = "";
         $('.cloudinary-thumbnails .cloudinary-thumbnail').each(function () {
           var imageHtml = $(this).html();
-          galleryHtml += (buildArticle(imageHtml, "Click here to add a caption"))
+          galleryHtml += (buildArticle(imageHtml, "Add a caption here!"))
         });
         $('.gallery-row').html(galleryHtml);
         $('#photomessage').text("Thanks for sharing your photos!");
