@@ -85,7 +85,7 @@ var hideRegistrationForm = function(){
 };
 
 var attachFormHandler = function () {
-  $('#contact-form').submit(function (event) {
+  $('#form-submit-button').click(function (event) {
     event.preventDefault();
     if (!isSubmitting && validateFormData()){
       var data = {};
