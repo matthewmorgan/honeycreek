@@ -17,7 +17,7 @@ var updatePhotoCaption = function(imageId, captionText){
 
   superagent
   .put('http://honey-server.apps.dulcetsoftware.com/cloudinary/updatecaption'+paramString)
-  .end((err, result) => {
+  .end(function (err, result){
         if (err) throw err;
         captionBox.fadeTo("fast", 1.0);
       })
