@@ -5,7 +5,9 @@ var isSubmitting = false;
 
 
 var updatePhotoCaption = function(imageId, captionText){
-  let public_id = imageId,
+  let captionBox = $('.gallery-row').find('#caption-'+imageId);
+  captionBox.fadeTo("fast", 0.33);
+  let public_id = imageId.split('-')[1],
       tags = [
         'user-'+userId,
         'caption-'+captionText
@@ -17,6 +19,7 @@ var updatePhotoCaption = function(imageId, captionText){
   .put('http://honey-server.apps.dulcetsoftware.com/cloudinary/updatecaption'+paramString)
   .end((err, result) => {
         if (err) throw err;
+        captionBox.fadeTo("fast", 1.0);
         console.log('caption '+captionText+' updated.');
       })
 };
