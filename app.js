@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require ('fs');
-var env= process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || 'development';
 
 var routes = require('./routes/index');
 //var data = require('./routes/data');
