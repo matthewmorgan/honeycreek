@@ -14,7 +14,7 @@ var updatePhotoCaption = function(imageId, captionText){
   let paramString = '?public_id='+public_id+'&tags='+encodeURIComponent(tags);
 
   superagent
-  .patch('http://honey-server.apps.dulcetsoftware.com/cloudinary/updatecaption'+paramString)
+  .put('http://honey-server.apps.dulcetsoftware.com/cloudinary/updatecaption'+paramString)
   .end((err, result) => {
         if (err) throw err;
         console.log('caption '+captionText+' updated.');
