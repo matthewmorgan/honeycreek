@@ -70,8 +70,7 @@ var attachFormHandler = function () {
       $("#contact-form").serializeArray().map(function(x){data[x.name] = x.value;});
 
       storeUserData(data, function (result) {
-        console.log('result ', result);
-        userId = JSON.parse(result.text);
+        userId = JSON.parse(result.text).value._id;
         attachUploadWidget();
         hideRegistrationForm();
         revealImageUploadButton();
