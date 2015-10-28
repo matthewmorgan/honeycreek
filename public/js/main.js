@@ -20,7 +20,6 @@ var updatePhotoCaption = function(imageId, captionText){
   .end((err, result) => {
         if (err) throw err;
         captionBox.fadeTo("fast", 1.0);
-        console.log('caption '+captionText+' updated.');
       })
 };
 
@@ -93,7 +92,6 @@ var attachFormHandler = function () {
       $("#contact-form").serializeArray().map(function(x){data[x.name] = x.value;});
 
       storeUserData(data, function (result) {
-        console.log('upsert result ',result);
         userId = JSON.parse(result.text).value._id;
         attachUploadWidget();
         hideRegistrationForm();
