@@ -67,6 +67,7 @@ var validateFormData = function(){
 };
 
 var storeUserData = function (data, callback) {
+  data.email=data.email.toLowerCase();
   superagent
       .post('http://honey-server.apps.dulcetsoftware.com/user')
       .send(data)
