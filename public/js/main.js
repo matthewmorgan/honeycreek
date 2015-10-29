@@ -139,7 +139,7 @@ var displayOne = function(displayedImageElements, displayedCaptions, image, inde
   })[0].substring(8) || "";
 
   var partials = image.url.split('upload');
-  var rightSizeUrl = partials[0]+'upload/c_fill,h_335,w_335'+partials[1];
+  var rightSizeUrl = partials[0]+'upload/c_fill,h_335,w_335,q_80'+partials[1];
   var thisElement = $(displayedImageElements[index]);
   thisElement.attr('src',rightSizeUrl);
   var thisCaption = $(displayedCaptions[index]);
