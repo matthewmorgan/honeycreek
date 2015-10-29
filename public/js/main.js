@@ -81,6 +81,23 @@ var storeUserData = function (data, callback) {
 
 };
 
+var fetchThreeImages = function(callback) {
+  console.log('fetching three images');
+  superagent
+  .get('http://honey-server.apps.dulcetsoftware.com/cloudinary/randomimages/3')
+  .end(function(err, result){
+        if (err) throw err;
+        result = JSON.parse(result.text);
+        console.log('result of fetch ',result);
+        var imageArray = result.reduce(function(acc, resource){
+          acc.push({ url: resource.url, tags: resource.tags });
+          return acc;
+        }, []);
+
+        callback(imageArray);
+      })
+};
+
 var hideRegistrationForm = function(){
   $('.fadable').fadeOut();
 };
@@ -110,7 +127,8 @@ var attachFormHandler = function () {
 };
 
 $(document).ready(function () {
-
   attachFormHandler();
-
+  fetchThreeImages(function(result){
+    console.log(result);
+  })
 });
