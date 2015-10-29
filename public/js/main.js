@@ -10,7 +10,7 @@ var updatePhotoCaption = function(imageId, captionText){
   var public_id = imageId.split('-')[1],
       tags = [
         'user-'+userId,
-        'caption-'+captionText
+        'caption-'+captionText.split(',').join(' ')
       ];
 
   var paramString = '?public_id='+public_id+'&tags='+encodeURIComponent(tags);
@@ -140,7 +140,6 @@ var displayOne = function(displayedImageElements, displayedCaptions, image, inde
 
   var partials = image.url.split('upload');
   var rightSizeUrl = partials[0]+'upload/c_fill,h_335,w_335'+partials[1];
-  console.log(rightSizeUrl);
   var thisElement = $(displayedImageElements[index]);
   thisElement.attr('src',rightSizeUrl);
   var thisCaption = $(displayedCaptions[index]);
