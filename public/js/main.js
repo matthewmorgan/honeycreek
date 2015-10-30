@@ -131,7 +131,7 @@ var displayImagesInGallery = function(displayedImageElements, displayedCaptions,
   imageArray.forEach(function(image, index){
     displayOne(displayedImageElements, displayedCaptions, image, index);
   })
-  $('.thumbnails').animate({opacity:'1.0'})
+  //$('.thumbnails').removeClass({opacity:'1.0'})
 };
 
 var displayOne = function(displayedImageElements, displayedCaptions, image, index){
