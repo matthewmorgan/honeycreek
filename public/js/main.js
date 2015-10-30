@@ -135,7 +135,7 @@ var displayImagesInGallery = function(displayedImageElements, displayedCaptions,
 
 var displayOne = function(displayedImageElements, displayedCaptions, image, index){
   var caption = image.tags.filter(function(tag){
-    return tag.startsWith('caption');
+    return tag.substring(0,7)==='caption';
   })[0].substring(8) || "";
 
   var partials = image.url.split('upload');
