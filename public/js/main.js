@@ -119,10 +119,10 @@ var attachFormHandler = function () {
   });
 
 
-  $('#registration-form-reset').click(function () {
-    deleteCloudinaryImages();
-    location.reload();
-  });
+  //$('#reset').click(function (event) {
+  //  event.preventDefault();
+  //  document.getElementById('contact-form').reset();
+  //});
 };
 
 

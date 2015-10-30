@@ -1906,6 +1906,9 @@
 						margin-left: 0;
 					}
 
+		.desktopflex {
+			display: flex;
+		}
 	}
 
 /* Tablet */
@@ -2176,4 +2179,17 @@
 
 .align-left {
 	text-align:left;
+}
+
+.hero {
+	width: 98%;
+	margin:10px;
+}
+
+.centered {
+	text-align:center;
+}
+
+.full-width {
+	width: 100%;
 }
