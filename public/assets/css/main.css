@@ -2120,6 +2120,9 @@
 					display: block;
 				}
 
+				.full-width div{
+					width: 100%;
+				}
 	}
 
 .cloudinary_fileupload {
