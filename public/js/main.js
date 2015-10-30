@@ -82,13 +82,11 @@ var storeUserData = function (data, callback) {
 };
 
 var fetchThreeImages = function(callback) {
-  console.log('fetching three images');
   superagent
   .get('http://honey-server.apps.dulcetsoftware.com/cloudinary/randomimages/3')
   .end(function(err, result){
         if (err) throw err;
         result = JSON.parse(result.text);
-        console.log('result of fetch ',result);
         var imageArray = result.reduce(function(acc, resource){
           acc.push({ url: resource.url, tags: resource.tags });
           return acc;
@@ -117,12 +115,6 @@ var attachFormHandler = function () {
       })
     }
   });
-
-
-  //$('#reset').click(function (event) {
-  //  event.preventDefault();
-  //  document.getElementById('contact-form').reset();
-  //});
 };
 
 
@@ -140,10 +132,8 @@ var displayOne = function(displayedImageElements, displayedCaptions, image, inde
 
   var partials = image.url.split('upload');
   var rightSizeUrl = partials[0]+'upload/c_fill,h_335,w_335'+partials[1];
-  var thisElement = $(displayedImageElements[index]);
-  thisElement.attr('src',rightSizeUrl);
-  var thisCaption = $(displayedCaptions[index]);
-  thisCaption.text(caption);
+  $(displayedImageElements[index]).attr('src',rightSizeUrl);
+  $(displayedCaptions[index]).text(caption)
 };
 
 
