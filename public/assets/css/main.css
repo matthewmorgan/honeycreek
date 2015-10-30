@@ -2201,6 +2201,14 @@
 	opacity:0;
 }
 
-.introfade {
+/*.introfade {*/
+	/*opacity: 0;*/
+/*}*/
+
+/*.initiallycentered {*/
+	/*text-align:center;*/
+/*}*/
+
+html {
 	opacity: 0;
 }

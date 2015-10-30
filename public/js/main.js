@@ -139,7 +139,8 @@ var displayOne = function(displayedImageElements, displayedCaptions, image, inde
 
 
 $(document).ready(function () {
-  $('.introfade').fadeTo("slow", 1.0);
+  $('html').fadeTo("slow", 1.0);
+
   attachFormHandler();
   fetchThreeImages(function(result){
     displayImagesInGallery($('.randomimage'),$('.randomcaption'),result);
