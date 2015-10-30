@@ -2191,5 +2191,6 @@
 }
 
 .full-width {
-	width: 100%;
+	display: table-cell;
 }
+
