@@ -123,6 +123,7 @@ var displayImagesInGallery = function(displayedImageElements, displayedCaptions,
   imageArray.forEach(function(image, index){
     displayOne(displayedImageElements, displayedCaptions, image, index);
   });
+  $('.thumbnails').fadeTo("fast", 1.0);
 };
 
 var displayOne = function(displayedImageElements, displayedCaptions, image, index){
@@ -138,6 +139,7 @@ var displayOne = function(displayedImageElements, displayedCaptions, image, inde
 
 
 $(document).ready(function () {
+  $('.introfade').fadeTo("slow", 1.0);
   attachFormHandler();
   fetchThreeImages(function(result){
     displayImagesInGallery($('.randomimage'),$('.randomcaption'),result);

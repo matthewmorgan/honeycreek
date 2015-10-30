@@ -2197,3 +2197,10 @@
 	display: table-cell;
 }
 
+.thumbnails {
+	opacity:0;
+}
+
+.introfade {
+	opacity: 0;
+}
