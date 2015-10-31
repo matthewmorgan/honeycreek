@@ -2212,3 +2212,7 @@
 html {
 	opacity: 0;
 }
+
+.commentbackground {
+	font-style: italic;
+}

@@ -96,6 +96,17 @@ var fetchThreeImages = function (callback) {
       })
 };
 
+var fetchAComment = function(displayComment){
+  superagent
+  .get('http://honey-server.apps.dulcetsoftware.com/comment/random')
+  .end(function(err, result){
+        if (err) throw err;
+        result = JSON.parse(result.text);
+        displayComment(result);
+      })
+};
+
+
 var hideRegistrationForm = function () {
   $('.fadable').fadeOut();
 };
@@ -150,4 +161,7 @@ $(document).ready(function () {
     var captionPlaceholders = $('.randomcaption');
     displayImagesInGallery(imagePlaceholders, captionPlaceholders, randomImages);
   })
+  fetchAComment(function(comment){
+    $('#current-comment').text(comment);
+  });
 });
