@@ -153,6 +153,16 @@ var displayOne = function (displayedImageElements, displayedCaptions, image, ind
   $(displayedCaptions[index]).text(caption)
 };
 
+var setCommentTimer = function(){
+  setInterval(function(){
+    fetchAComment(function(comment){
+      $('#current-comment').fadeOut('slow',function(){
+        $('#current-comment').text(comment);
+        $('#current-comment').fadeIn('fast');
+      });
+    });
+  }, 5000);
+};
 
 $(document).ready(function () {
   $('html').fadeTo("slow", 1.0);
@@ -165,5 +175,6 @@ $(document).ready(function () {
   })
   fetchAComment(function(comment){
     $('#current-comment').text(comment);
+    setCommentTimer();
   });
 });
