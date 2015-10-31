@@ -101,6 +101,7 @@ var fetchAComment = function(displayComment){
   superagent
   .get('http://honey-server.apps.dulcetsoftware.com/comment/random')
   .end(function(err, result){
+        console.log('error ',err);
         if (err) throw err;
         result = result.text;
         console.log(result);

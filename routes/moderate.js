@@ -25,6 +25,7 @@ var sortUsersByApprovedMessages = function(user1, user2){
     }
   }
   return -1;
-}
+};
+
 module.exports = router;
 
