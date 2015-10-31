@@ -156,10 +156,12 @@ var displayOne = function (displayedImageElements, displayedCaptions, image, ind
 var setCommentTimer = function(){
   setInterval(function(){
     fetchAComment(function(comment){
-      $('#current-comment').fadeOut('slow',function(){
-        $('#current-comment').text(comment);
-        $('#current-comment').fadeIn('fast');
-      });
+      if (comment !== $('#current-comment').text()){
+        $('#current-comment').fadeOut('slow',function(){
+          $('#current-comment').text(comment);
+          $('#current-comment').fadeIn('fast');
+        });
+      }
     });
   }, 5000);
 };
