@@ -7,7 +7,8 @@ var bodyParser = require('body-parser');
 var fs = require ('fs');
 var env = process.env.NODE_ENV || 'development';
 
-var routes = require('./routes/index');
+var index = require('./routes/index');
+var moderate = require('./routes/moderate');
 //var data = require('./routes/data');
 //var data = require('./routes/users');
 
@@ -42,7 +43,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+app.use('/', index);
+app.use('/moderate', moderate);
 
 
 // catch 404 and forward to error handler

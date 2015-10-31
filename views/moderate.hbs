@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+    <title>Honey Creek Anniversary Party Moderator's Page</title>
+</head>
+<body style="width:95%;padding:20px;">
+<h1>Moderate comments and click STORE RESULTS</h1>
+<div>
+    {{#each users}}
+        <div class="comment">
+            <h2>{{message}}</h2>
+            <h3>{{name}}</h3>
+            <label class="small"><input id="{{_id}}" type="checkbox" value="{{messageApproved}}"/>Message Approved?</label>
+        </div>
+    {{/each}}
+    <div ]>
+        <button class="btn btn-default" id="save-results">Store results</button>
+    </div>
+</div>
+
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="lib/superagent.js"></script>
+<script src="js/updatemoderation.js"></script>
+
+</html>
