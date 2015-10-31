@@ -20,10 +20,11 @@ var attachFormHandler = function () {
       var input = $(this).find('input');
       var comment = {
         _id: input.attr('id'),
-        messageApproved: input.is(':checked')
+        messageApproved: input.prop('checked')
       };
       comments.push(comment)
     });
+    console.log(comments);
     updateComments(comments);
   })
 };

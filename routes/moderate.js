@@ -8,7 +8,6 @@ router.get('/', function (req, res, next) {
       .get('http://honey-server.apps.dulcetsoftware.com/users')
       .end((err, result) => {
         if (err) throw err;
-        console.log(result.body);
         res.render('moderate', {users:result.body});
       })
 });
