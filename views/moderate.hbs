@@ -9,16 +9,16 @@
     <title>Honey Creek Anniversary Party Moderator's Page</title>
 </head>
 <body style="width:95%;padding:20px;">
-<h1>Moderate comments and click STORE RESULTS</h1>
+<h2 style="margin-left:10px">Moderate comments and click STORE RESULTS</h2>
 <div>
     {{#each users}}
-        <div class="comment" style="background:#eaeaea">
-            <h2>{{message}}</h2>
-            <h3>{{name}}</h3>
+        <div class="comment" style="background:#eaeaea;padding:5px;margin:10px;">
+            <h3>{{message}}</h3>
+            <h4>{{name}}</h4>
             <label class="small"><input id="{{_id}}" type="checkbox" value="{{messageApproved}}"/>Message Approved?</label>
         </div>
     {{/each}}
-    <div>
+    <div style="margin:10px;">
         <br>
         <button class="btn btn-default" id="save-results">Store results</button>
     </div>
