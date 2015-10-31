@@ -69,6 +69,7 @@ var validateFormData = function () {
 
 var storeUserData = function (data, callback) {
   data.email = data.email.toLowerCase();
+  data.affiliation = $('select').val() || data.otheraffiliation;
   superagent
       .post('http://honey-server.apps.dulcetsoftware.com/user')
       .send(data)
@@ -101,7 +102,8 @@ var fetchAComment = function(displayComment){
   .get('http://honey-server.apps.dulcetsoftware.com/comment/random')
   .end(function(err, result){
         if (err) throw err;
-        result = JSON.parse(result.text);
+        result = result.text;
+        console.log(result);
         displayComment(result);
       })
 };
