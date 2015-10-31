@@ -163,7 +163,7 @@ var setCommentTimer = function(){
         });
       }
     });
-  }, 5000);
+  }, 4000);
 };
 
 $(document).ready(function () {
