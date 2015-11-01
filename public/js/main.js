@@ -64,9 +64,18 @@ var revealImageUploadButton = function () {
 };
 
 var validateFormData = function () {
-  return true;
+  var form = $('#contact-form');
+  var name = form.find('#name').val().trim();
+  var nameFilledOut = name.match('\w+');
+  var email = form.find('#email').val().trim();
+  var validEmail = validateEmail(email);
+  return  (nameFilledOut && validEmail);
 };
 
+var validateEmail = function (email) {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
 var storeUserData = function (data, callback) {
   data.email = data.email.toLowerCase();
   data.affiliation = $('select').val() || data.otheraffiliation;
