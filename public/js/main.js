@@ -2,7 +2,7 @@
 
 var userId = 'unknown';
 var isSubmitting = false;
-var serverAddress = 'http://honey-server.apss.dulcetsoftware.com';
+var serverAddress = 'http://honey-server.apps.dulcetsoftware.com';
 //var serverAddress = 'http://localhost:4000';
 
 var updatePhotoCaption = function (imageId, captionText) {
