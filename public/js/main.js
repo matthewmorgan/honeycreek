@@ -2,7 +2,8 @@
 
 var userId = 'unknown';
 var isSubmitting = false;
-
+var serverAddress = 'http://honey-server.apss.dulcetsoftware.com';
+//var serverAddress = 'http://localhost:4000';
 
 var updatePhotoCaption = function (imageId, captionText) {
   var captionBox = $('.gallery-row').find('#caption-' + imageId);
@@ -16,7 +17,7 @@ var updatePhotoCaption = function (imageId, captionText) {
   var paramString = '?public_id='+public_id+'&tags='+encodeURIComponent(tags);
 
   superagent
-      .put('http://honey-server.apps.dulcetsoftware.com/cloudinary/updatecaption'+paramString)
+      .put(serverAddress+'/cloudinary/updatecaption'+paramString)
       .end(function (err) {
         if (err) throw err;
         captionBox.fadeTo("fast", 1.0);
@@ -80,7 +81,7 @@ var storeUserData = function (data, callback) {
   data.email = data.email.toLowerCase();
   data.affiliation = $('select').val() || data.otheraffiliation;
   superagent
-      .post('http://honey-server.apps.dulcetsoftware.com/user')
+      .post(serverAddress+'/user')
       .send(data)
       .end(function (err, result) {
         if (err) {
@@ -94,7 +95,7 @@ var storeUserData = function (data, callback) {
 
 var fetchThreeImages = function (callback) {
   superagent
-      .get('http://honey-server.apps.dulcetsoftware.com/cloudinary/randomimages/3')
+      .get(serverAddress+'/cloudinary/randomimages/3')
       .end(function (err, result) {
         if (err) throw err;
         result = JSON.parse(result.text);
@@ -108,7 +109,7 @@ var fetchThreeImages = function (callback) {
 
 var fetchAComment = function(displayComment){
   superagent
-  .get('http://honey-server.apps.dulcetsoftware.com/comment/random')
+  .get(serverAddress+'/comment/random')
   .end(function(err, result){
         if (err) throw err;
         result = result.text;
