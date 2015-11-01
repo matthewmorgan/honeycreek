@@ -20,8 +20,7 @@ var sortUsersByApprovedMessages = function(user1, user2){
     if (!user2.messageApproved){
       return 1;
     } else {
-      var timeDiff = ObjectId(user2._id).getTime()-ObjectId(user1._id).getTime();
-      return timeDiff;
+      return 0;
     }
   }
   return -1;
