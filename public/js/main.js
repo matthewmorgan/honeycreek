@@ -38,8 +38,10 @@ var buildArticle = function (imageHtml) {
 var attachUploadWidget = function () {
   $('#upload_widget_opener').cloudinary_upload_widget(
       {
-        cloud_name:               'hztzss4vs', upload_preset: 'dz49gmc6',
-        sources:                  ['local', 'url'], multiple: true,
+        cloud_name:               'hztzss4vs',
+        upload_preset:            'dz49gmc6',
+        sources:                  ['local', 'url'],
+        cropping:                 'server',
         thumbnails:               '#dummy_thumbnail_gallery',
         thumbnail_transformation: {width: 383, height: 383, crop: 'fill'},
         tags:                     'user-' + userId
