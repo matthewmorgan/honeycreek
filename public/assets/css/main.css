@@ -2216,3 +2216,8 @@ html {
 .commentbackground {
 	font-style: italic;
 }
+
+#current-comment {
+	height: 55px;
+	overflow-y: scroll;
+}

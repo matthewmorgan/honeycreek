@@ -1,6 +1,7 @@
 var userId = 'unknown';
 var isSubmitting = false;
 var serverAddress = 'http://honey-server.apps.dulcetsoftware.com';
+var sessionSubmittedImages = {};
 //var serverAddress = 'http://localhost:4000';
 
 var updatePhotoCaption = function (imageId, captionText) {
@@ -22,6 +23,21 @@ var updatePhotoCaption = function (imageId, captionText) {
       })
 };
 
+var deleteImage = function (imageId) {
+  var public_id = imageId.split('-')[1]
+  console.log('trying to delete image ',public_id);
+
+  superagent
+      .del(serverAddress + '/cloudinary/' + public_id)
+      .end(function (err) {
+        if (err) throw err;
+        delete(sessionSubmittedImages[imageId]);
+        $('.gallery-row').fadeOut("slow");
+        buildGallery(sessionSubmittedImages, function(){
+          $('.gallery-row').fadeIn("fast");
+        });
+      })
+};
 
 var buildArticle = function (imageHtml) {
   var imageId = 'img-' + (imageHtml.match("[a-z0-9]+\.(jpg|png|bmp|gif|tif)")[0].split('.')[0]);
@@ -29,11 +45,35 @@ var buildArticle = function (imageHtml) {
     var captionText = $('#caption-' + imageId).val().trim();
     updatePhotoCaption(imageId, captionText);
   });
+
+  $('.gallery-row').on('click', '#delete-' + imageId, function () {
+    deleteImage(imageId);
+  });
+
   return '<div class="4u 12u(mobile)">' +
       '<article class="box style2">' +
       '<div class="image featured">' + imageHtml + '</div>' +
-      '<textarea id="caption-' + imageId + '" style="resize:vertical" placeholder="add a caption!"></textarea></article></div>';
+      '<textarea id="caption-' + imageId + '" style="resize:vertical" placeholder="add a caption!"></textarea>' +
+      '<a id="delete-' + imageId + '" class="remove-shadow">delete this image</a>' +
+      '</article></div>';
 };
+
+
+var buildGallery = function (images, callback) {
+  console.log('buildGallery has images as ',images);
+  $('.gallery-row').off();
+  var galleryHtml = Object.keys(images).reduce(function (acc, imageId) {
+    acc += buildArticle(images[imageId]);
+    return acc;
+  }, '');
+  $('.gallery-row').html(galleryHtml);
+  $('#photomessage').text("Thanks for sharing!");
+  $('.cloudinary-button').text('Upload another image!');
+  if (callback!==null && typeof callback === 'function'){
+    callback();
+  }
+};
+
 
 var attachUploadWidget = function () {
   $('#upload_widget_opener').cloudinary_upload_widget(
@@ -46,16 +86,16 @@ var attachUploadWidget = function () {
         thumbnail_transformation: {width: 383, height: 383, crop: 'fill'},
         tags:                     'user-' + userId
       },
-      function (err) {
+      function (err, result) {
         if (err) throw err;
+        console.log('result of upload? ',result);
         var galleryHtml = "";
-        $('.cloudinary-thumbnails .cloudinary-thumbnail').each(function () {
-          var imageHtml = $(this).html();
-          galleryHtml += (buildArticle(imageHtml))
+        result.forEach(function (image) {
+          var imageHtml = '<img src="'+image.thumbnail_url+'"/>';
+          var imageId = 'img-' + image.public_id;
+          sessionSubmittedImages[imageId] = imageHtml;
         });
-        $('.gallery-row').html(galleryHtml);
-        $('#photomessage').text("Thanks for sharing your photos!");
-        $('.cloudinary-button').text('Upload another image!');
+        buildGallery(sessionSubmittedImages);
       });
   $('.cloudinary-button').text('Upload an image!');
 };
@@ -77,9 +117,11 @@ var validateEmail = function (email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 };
+
 var storeUserData = function (data, callback) {
   data.email = data.email.toLowerCase();
-  data.affiliation = $('select').val() || data.otheraffiliation;
+  var affiliation = $('select').val();
+  data.affiliation = affiliation !== 'Other' ? (affiliation || 'Friend') : data.otheraffiliation;
   superagent
       .post(serverAddress + '/user')
       .send(data)
