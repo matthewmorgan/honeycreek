@@ -55,9 +55,9 @@ var attachUploadWidget = function () {
         });
         $('.gallery-row').html(galleryHtml);
         $('#photomessage').text("Thanks for sharing your photos!");
-        $('.cloudinary-button').text('Upload more images!');
+        $('.cloudinary-button').text('Upload another image!');
       });
-  $('.cloudinary-button').text('Upload your images!');
+  $('.cloudinary-button').text('Upload an image!');
 };
 
 var revealImageUploadButton = function () {
