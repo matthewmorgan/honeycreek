@@ -1,5 +1,3 @@
-'use strict';
-
 var userId = 'unknown';
 var isSubmitting = false;
 var serverAddress = 'http://honey-server.apps.dulcetsoftware.com';
@@ -14,10 +12,10 @@ var updatePhotoCaption = function (imageId, captionText) {
         'caption-' + captionText.split(',').join(' ')
       ];
 
-  var paramString = '?public_id='+public_id+'&tags='+encodeURIComponent(tags);
+  var paramString = '?public_id=' + public_id + '&tags=' + encodeURIComponent(tags);
 
   superagent
-      .put(serverAddress+'/cloudinary/updatecaption'+paramString)
+      .put(serverAddress + '/cloudinary/updatecaption' + paramString)
       .end(function (err) {
         if (err) throw err;
         captionBox.fadeTo("fast", 1.0);
@@ -67,21 +65,21 @@ var revealImageUploadButton = function () {
 var validateFormData = function () {
   var form = $('#contact-form');
   var name = form.find('#name').val().trim();
-  var nameFilledOut = name.match('\w+');
+  var nameFilledOut = name.match('[a-zA-Z]+');  //Safari 7 doesn't like w regex!
   var email = form.find('#email').val().trim();
   var validEmail = validateEmail(email);
-  return  (nameFilledOut && validEmail);
+  return (nameFilledOut && validEmail);
 };
 
 var validateEmail = function (email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
-}
+};
 var storeUserData = function (data, callback) {
   data.email = data.email.toLowerCase();
   data.affiliation = $('select').val() || data.otheraffiliation;
   superagent
-      .post(serverAddress+'/user')
+      .post(serverAddress + '/user')
       .send(data)
       .end(function (err, result) {
         if (err) {
@@ -95,7 +93,7 @@ var storeUserData = function (data, callback) {
 
 var fetchThreeImages = function (callback) {
   superagent
-      .get(serverAddress+'/cloudinary/randomimages/3')
+      .get(serverAddress + '/cloudinary/randomimages/3')
       .end(function (err, result) {
         if (err) throw err;
         result = JSON.parse(result.text);
@@ -107,10 +105,10 @@ var fetchThreeImages = function (callback) {
       })
 };
 
-var fetchAComment = function(displayComment){
+var fetchAComment = function (displayComment) {
   superagent
-  .get(serverAddress+'/comment/random')
-  .end(function(err, result){
+      .get(serverAddress + '/comment/random')
+      .end(function (err, result) {
         if (err) throw err;
         result = result.text;
         displayComment(result);
@@ -124,22 +122,27 @@ var hideRegistrationForm = function () {
 
 var attachFormHandler = function () {
   $('#form-submit-button').click(function (event) {
-    event.preventDefault();
-    if (!isSubmitting && validateFormData()) {
-      var data = $("#contact-form").serializeArray().reduce(function (acc, x) {
-        acc[x.name] = x.value;
-        return acc;
-      },{});
+        event.preventDefault();
+        if (!isSubmitting) {
+          if (validateFormData()) {
+            var data = $("#contact-form").serializeArray().reduce(function (acc, x) {
+              acc[x.name] = x.value;
+              return acc;
+            }, {});
 
-      storeUserData(data, function (result) {
-        userId = JSON.parse(result.text).value._id;
-        attachUploadWidget();
-        hideRegistrationForm();
-        revealImageUploadButton();
-        isSubmitting = false;
-      })
-    }
-  });
+            storeUserData(data, function (result) {
+              userId = JSON.parse(result.text).value._id;
+              attachUploadWidget();
+              hideRegistrationForm();
+              revealImageUploadButton();
+              isSubmitting = false;
+            })
+          } else {
+            alert('Please enter your name and a valid email!');
+          }
+        }
+      }
+  );
 };
 
 
@@ -162,11 +165,11 @@ var displayOne = function (displayedImageElements, displayedCaptions, image, ind
   $(displayedCaptions[index]).text(caption)
 };
 
-var setCommentTimer = function(){
-  setInterval(function(){
-    fetchAComment(function(comment){
-      if (comment !== $('#current-comment').text()){
-        $('#current-comment').fadeOut('slow',function(){
+var setCommentTimer = function () {
+  setInterval(function () {
+    fetchAComment(function (comment) {
+      if (comment !== $('#current-comment').text()) {
+        $('#current-comment').fadeOut('slow', function () {
           $('#current-comment').text(comment);
           $('#current-comment').fadeIn('fast');
         });
@@ -184,7 +187,7 @@ $(document).ready(function () {
     var captionPlaceholders = $('.randomcaption');
     displayImagesInGallery(imagePlaceholders, captionPlaceholders, randomImages);
   })
-  fetchAComment(function(comment){
+  fetchAComment(function (comment) {
     $('#current-comment').text(comment);
     setCommentTimer();
   });
