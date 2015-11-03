@@ -25,7 +25,6 @@ var updatePhotoCaption = function (imageId, captionText) {
 
 var deleteImage = function (imageId) {
   var public_id = imageId.split('-')[1];
-  console.log('trying to delete image ', public_id);
 
   superagent
       .del(serverAddress + '/cloudinary/' + public_id)
@@ -103,10 +102,8 @@ var revealImageUploadButton = function () {
 
 var validateFormData = function () {
   var form = $('#contact-form');
-  var name = form.find('#name').val().trim();
-  var nameFilledOut = name.match('[a-zA-Z]+');  //Safari 7 doesn't like w regex!
-  var email = form.find('#email').val().trim();
-  var validEmail = validateEmail(email);
+  var nameFilledOut = form.find('#name').val().trim().match('[a-zA-Z]+');  //Safari 7 doesn't like w regex!
+  var validEmail = validateEmail(form.find('#email').val().trim());
   return (nameFilledOut && validEmail);
 };
 
@@ -228,14 +225,17 @@ $(document).ready(function () {
   $('html').fadeTo("slow", 1.0);
 
   attachFormHandler();
+
   fetchThreeImages(function (randomImages) {
     var imagePlaceholders = $('.randomimage');
     var captionPlaceholders = $('.randomcaption');
     displayImagesInGallery(imagePlaceholders, captionPlaceholders, randomImages);
   });
+
   fetchAComment(function (comment) {
     $('#current-comment').text(comment);
     setCommentTimer();
   });
+
   attachGalleryExpander();
 });
