@@ -24,8 +24,8 @@ var updatePhotoCaption = function (imageId, captionText) {
 };
 
 var deleteImage = function (imageId) {
-  var public_id = imageId.split('-')[1]
-  console.log('trying to delete image ',public_id);
+  var public_id = imageId.split('-')[1];
+  console.log('trying to delete image ', public_id);
 
   superagent
       .del(serverAddress + '/cloudinary/' + public_id)
@@ -33,7 +33,7 @@ var deleteImage = function (imageId) {
         if (err) throw err;
         delete(sessionSubmittedImages[imageId]);
         $('.gallery-row').fadeOut("slow");
-        buildGallery(sessionSubmittedImages, function(){
+        buildGallery(sessionSubmittedImages, function () {
           $('.gallery-row').fadeIn("fast");
         });
       })
@@ -41,12 +41,13 @@ var deleteImage = function (imageId) {
 
 var buildArticle = function (imageHtml) {
   var imageId = 'img-' + (imageHtml.match("[a-z0-9]+\.(jpg|png|bmp|gif|tif)")[0].split('.')[0]);
-  $('.gallery-row').on('change', '#caption-' + imageId, function () {
+  var galleryRowEl = $('.gallery-row');
+  galleryRowEl.on('change', '#caption-' + imageId, function () {
     var captionText = $('#caption-' + imageId).val().trim();
     updatePhotoCaption(imageId, captionText);
   });
 
-  $('.gallery-row').on('click', '#delete-' + imageId, function () {
+  galleryRowEl.on('click', '#delete-' + imageId, function () {
     deleteImage(imageId);
   });
 
@@ -58,22 +59,20 @@ var buildArticle = function (imageHtml) {
       '</article></div>';
 };
 
-
 var buildGallery = function (images, callback) {
-  console.log('buildGallery has images as ',images);
-  $('.gallery-row').off();
+  var galleryRowEl = $('.gallery-row');
+  galleryRowEl.off();
   var galleryHtml = Object.keys(images).reduce(function (acc, imageId) {
     acc += buildArticle(images[imageId]);
     return acc;
   }, '');
-  $('.gallery-row').html(galleryHtml);
+  galleryRowEl.html(galleryHtml);
   $('#photomessage').text("Thanks for sharing!");
   $('.cloudinary-button').text('Upload another image!');
-  if (callback!==null && typeof callback === 'function'){
+  if (callback !== null && typeof callback === 'function') {
     callback();
   }
 };
-
 
 var attachUploadWidget = function () {
   $('#upload_widget_opener').cloudinary_upload_widget(
@@ -88,10 +87,8 @@ var attachUploadWidget = function () {
       },
       function (err, result) {
         if (err) throw err;
-        console.log('result of upload? ',result);
-        var galleryHtml = "";
         result.forEach(function (image) {
-          var imageHtml = '<img src="'+image.thumbnail_url+'"/>';
+          var imageHtml = '<img src="' + image.thumbnail_url + '"/>';
           var imageId = 'img-' + image.public_id;
           sessionSubmittedImages[imageId] = imageHtml;
         });
@@ -212,14 +209,19 @@ var displayOne = function (displayedImageElements, displayedCaptions, image, ind
 var setCommentTimer = function () {
   setInterval(function () {
     fetchAComment(function (comment) {
-      if (comment !== $('#current-comment').text()) {
-        $('#current-comment').fadeOut('slow', function () {
-          $('#current-comment').text(comment);
-          $('#current-comment').fadeIn('fast');
+      var currentCommentEl = $('#current-comment');
+      if (comment !== currentCommentEl.text()) {
+        currentCommentEl.fadeOut('slow', function () {
+          currentCommentEl.text(comment);
+          currentCommentEl.fadeIn('fast');
         });
       }
     });
-  }, 4000);
+  }, 3000);
+};
+
+var attachGalleryExpander = function () {
+
 };
 
 $(document).ready(function () {
@@ -230,9 +232,10 @@ $(document).ready(function () {
     var imagePlaceholders = $('.randomimage');
     var captionPlaceholders = $('.randomcaption');
     displayImagesInGallery(imagePlaceholders, captionPlaceholders, randomImages);
-  })
+  });
   fetchAComment(function (comment) {
     $('#current-comment').text(comment);
     setCommentTimer();
   });
+  attachGalleryExpander();
 });

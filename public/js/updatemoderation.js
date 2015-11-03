@@ -10,7 +10,8 @@ var updateComments = function(comments){
         if (err) throw err;
         alert('Comments updated.');
       })
-}
+};
+
 var attachFormHandler = function () {
   $('#save-results').click(function (event) {
     event.preventDefault();
