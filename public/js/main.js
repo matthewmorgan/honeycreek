@@ -241,13 +241,13 @@ $.fn.scrollView = function () {
 }
 
 var fetchUserIdByEmail = function () {
-  var email = $('#login-email-input').val().trim();
+  var email = $('#login-email-input').val().trim().toLowerCase();
   if (validateEmail(email)) {
     superagent
         .get(serverAddress + '/user/email/' + encodeURIComponent(email))
         .end(function (err, result) {
           if (err) {
-            alert('Eror looking up email.  Please try again!');
+            alert('Error looking up email.  Please try again!');
           } else {
             if (result.body._id) {
               hideLogin();
