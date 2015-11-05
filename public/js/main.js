@@ -96,8 +96,11 @@ var attachUploadWidget = function () {
   $('.cloudinary-button').text('Upload an image!');
 };
 
-var revealImageUploadButton = function () {
+var revealImageUploadButton = function (callback) {
   $('.upload_widget_wrapper').removeClass('hidden');
+  if (callback !== null && typeof callback === 'function') {
+    callback();
+  }
 };
 
 var validateFormData = function () {
@@ -221,6 +224,49 @@ var attachGalleryExpander = function () {
 
 };
 
+var showLogin = function () {
+  $(document).find('.modaloverlay').css('visibility', 'visible');
+};
+
+var hideLogin = function () {
+  $(document).find('.modaloverlay').css('visibility', 'hidden');
+};
+
+$.fn.scrollView = function () {
+  return this.each(function () {
+    $('html, body').animate({
+      scrollTop: $(this).offset().top
+    }, 2000);
+  });
+}
+
+var fetchUserIdByEmail = function () {
+  var email = $('#login-email-input').val().trim();
+  if (validateEmail(email)) {
+    superagent
+        .get(serverAddress + '/user/email/' + encodeURIComponent(email))
+        .end(function (err, result) {
+          if (err) {
+            alert('Eror looking up email.  Please try again!');
+          } else {
+            if (result.body._id) {
+              hideLogin();
+              userId = result.body._id;
+              attachUploadWidget();
+              hideRegistrationForm();
+              revealImageUploadButton(function () {
+                $('.upload_widget_wrapper').scrollView();
+              });
+            } else {
+              alert('Email not found.  Please register!');
+            }
+          }
+        })
+  } else {
+    alert('Email does not appear to be valid!');
+  }
+};
+
 $(document).ready(function () {
   $('html').fadeTo("slow", 1.0);
 
@@ -238,4 +284,6 @@ $(document).ready(function () {
   });
 
   attachGalleryExpander();
+
+
 });

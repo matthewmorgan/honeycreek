@@ -2180,6 +2180,10 @@
 	margin-left: -5px;
 }
 
+.margin-20 {
+	margin: 20px;
+}
+
 .align-left {
 	text-align:left;
 }
@@ -2220,4 +2224,48 @@ html {
 #current-comment {
 	height: 65px;
 	overflow-y: scroll;
+}
+
+#loginpane {
+	background-color: #cacaca;
+	width: 340px;
+	border-radius: 5px;
+	padding:20px
+}
+
+.loginoverlay {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+}
+.modaloverlay {
+	visibility: hidden;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	z-index: 1000;
+	background-color: rgba(0, 0, 0, 0.15);
+	position:fixed;
+	min-height: 100%;
+	bottom:0;
+	top:0;
+	left:0;
+	right:0;
+	margin: 0px;
+}
+
+#login-email-input {
+	width:100%;
+	text-align:center;
+	padding:10px;
+
+	font-size: 1.3em;
+}
+
+.normal-weight {
+	font-weight: 300;
 }
