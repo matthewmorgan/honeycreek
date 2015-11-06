@@ -166,10 +166,12 @@ var attachFormHandler = function () {
         event.preventDefault();
         if (!isSubmitting) {
           if (validateFormData()) {
-            var data = $("#contact-form").serializeArray().reduce(function (acc, x) {
-              acc[x.name] = x.value;
-              return acc;
-            }, {});
+            var data = $("#contact-form").serializeArray()
+                .filter(function(el) { return $.trim(el)})
+                .reduce(function (acc, x) {
+                  acc[x.name] = x.value;
+                  return acc;
+                }, {});
 
             storeUserData(data, function (result) {
               userId = JSON.parse(result.text).value._id;
