@@ -1071,7 +1071,7 @@
 	body, input, textarea, select {
 		font-family: 'Open Sans', sans-serif;
 		line-height: 1.85em;
-		color: #888;
+		color: #bbb;
 		font-weight: 300;
 	}
 
@@ -1199,6 +1199,7 @@
 		border: solid 1px #ddd;
 		background: #fff;
 		color: #bbb;
+		font-weight: 600;
 		box-shadow: inset 0px 2px 3px 1px rgba(0, 0, 0, 0.05), 0px 1px 0px 0px rgba(255, 255, 255, 0.025);
 		width: 100%;
 	}
@@ -2255,7 +2256,7 @@ html {
 	top:0;
 	left:0;
 	right:0;
-	margin: 0px;
+	margin: 0;
 }
 
 #login-email-input {
@@ -2268,4 +2269,19 @@ html {
 
 .normal-weight {
 	font-weight: 300;
+}
+
+body {
+	margin-left:20px;
+}
+
+.desktopflex {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+}
+
+.fixedheighticon {
+	height: 88px;
 }
