@@ -219,7 +219,7 @@ var setCommentTimer = function () {
         });
       }
     });
-  }, 3000);
+  }, 4000);
 };
 
 var attachGalleryExpander = function () {
