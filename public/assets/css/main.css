@@ -1961,6 +1961,10 @@
 
 	@media screen and (max-width: 736px) {
 
+		#logo {
+			width: 352px;
+			height: 70	px;
+		}
 		.fullwidthmobile {
 			width: 100%;
 		}
