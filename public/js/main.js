@@ -240,7 +240,8 @@ $.fn.scrollView = function () {
       scrollTop: $(this).offset().top
     }, 2000);
   });
-}
+};
+
 
 var fetchUserIdByEmail = function () {
   var email = $('#login-email-input').val().trim().toLowerCase();
