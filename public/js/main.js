@@ -146,13 +146,28 @@ var fetchThreeImages = function (callback) {
       })
 };
 
-var fetchAComment = function (displayComment) {
+
+var showComments = function (comments){
+  //create UL using comments, attach to scroller
+  var commentHtml = JSON.parse(comments).reduce(function(list, comment){
+    var singleHtml = '<li>'+comment+'</li>';
+    list+=singleHtml;
+    return list;
+  },'<ul id="scroller">')+'</ul>';
+  $('#scroll-container').html(commentHtml);
+  $("#scroller").simplyScroll({
+
+    orientation:'vertical'
+  });
+};
+
+var loadComments = function (showComments) {
   superagent
-      .get(serverAddress + '/comment/random')
+      .get(serverAddress + '/comments/all')
       .end(function (err, result) {
         if (err) throw err;
         result = result.text;
-        displayComment(result);
+        showComments(result);
       })
 };
 
@@ -167,7 +182,9 @@ var attachFormHandler = function () {
         if (!isSubmitting) {
           if (validateFormData()) {
             var data = $("#contact-form").serializeArray()
-                .filter(function(el) { return $.trim(el)})
+                .filter(function (el) {
+                  return $.trim(el)
+                })
                 .reduce(function (acc, x) {
                   acc[x.name] = x.value;
                   return acc;
@@ -206,20 +223,6 @@ var displayOne = function (displayedImageElements, displayedCaptions, image, ind
   var rightSizeUrl = partials[0] + 'upload/c_fill,h_335,w_335' + partials[1];
   $(displayedImageElements[index]).attr('src', rightSizeUrl);
   $(displayedCaptions[index]).text(caption)
-};
-
-var setCommentTimer = function () {
-  setInterval(function () {
-    fetchAComment(function (comment) {
-      var currentCommentEl = $('#current-comment');
-      if (comment !== currentCommentEl.text()) {
-        currentCommentEl.fadeOut('slow', function () {
-          currentCommentEl.text(comment);
-          currentCommentEl.fadeIn('fast');
-        });
-      }
-    });
-  }, 4000);
 };
 
 var attachGalleryExpander = function () {
@@ -281,9 +284,8 @@ $(document).ready(function () {
     displayImagesInGallery(imagePlaceholders, captionPlaceholders, randomImages);
   });
 
-  fetchAComment(function (comment) {
-    $('#current-comment').text(comment);
-    setCommentTimer();
+  loadComments(function (comments) {
+    showComments(comments);
   });
 
   attachGalleryExpander();

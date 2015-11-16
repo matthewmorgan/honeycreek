@@ -2224,11 +2224,8 @@ html {
 
 .commentbackground {
 	font-style: italic;
-}
-
-#current-comment {
-	height: 65px;
-	overflow-y: scroll;
+	color: black;
+	font-weight: 500;
 }
 
 #loginpane {
