@@ -4,10 +4,6 @@ body {
     font-weight: 300;
 }
 
-a {
-    color: #00B7FF;
-}
-
 .report {
     width: 100%;
     border-collapse: collapse;
@@ -25,7 +21,7 @@ a {
     padding-top: 5px;
     padding-bottom: 4px;
     background-color: #eaeaea;
-    color: #ffffff;
+    color: black;
 }
 
 .report tr:nth-child(odd) {
