@@ -2284,3 +2284,7 @@ html {
 .fixedheighticon {
 	height: 88px;
 }
+
+#scroller li {
+	font-size: 1.5em;
+}
