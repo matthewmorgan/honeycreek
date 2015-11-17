@@ -19,7 +19,7 @@ var sortUsersByAttending = function(user1, user2){
     if(user2.isAttending === 'false'){
       return 1;
     } else {
-      return 0;
+      return user1.name.localeCompare(user2.name);
     }
   }
   return -1;
