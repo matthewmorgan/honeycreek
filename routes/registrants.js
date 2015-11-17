@@ -15,8 +15,8 @@ router.get('/', function(req, res, next){
 
 
 var sortUsersByAttending = function(user1, user2){
-  if (user1.isAttending){
-    if(!user2.isAttending){
+  if (user1.isAttending === 'true'){
+    if(user2.isAttending === 'false'){
       return 1;
     } else {
       return 0;
