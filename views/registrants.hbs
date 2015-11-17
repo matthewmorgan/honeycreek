@@ -2,22 +2,21 @@
 <html>
 <head>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+    <link href="../css/report.css" rel="stylesheet"/>
     <title>Honey Creek Anniversary Party Moderator's Page</title>
 </head>
-<body style="width:95%;padding:20px;">
+<body>
 <div>
-    <div class="comment" style="background:#eaeaea;padding:5px;margin:10px;">
-        <h4>Name, Affiliation, Email, Address1, Address2, City, State, Zip, Is Attending, Guest Count</h4>
-    </div>
+    <table class="report">
+    <tr>
+        <th>Name</th><th>Affiliation</th><th>Email</th><th>Address1</th><th>Address2</th><th>City</th><th>State</th><th>ZIP</th><th>Is Attending</th><th>Guest Count</th>
+    </tr>
     {{#each users}}
-        <div class="comment" style="background:#eaeaea;padding:5px;margin:10px;">
-            <h4>{{name}}, {{affiliation}}, {{email}}, {{address1}}, {{address2}}, {{city}}, {{state}}, {{zip}}, {{isAttending}}, {{guests}}</h4>
-        </div>
+        <tr>
+            <td>{{name}}</td><td>{{affiliation}}</td><td>{{email}}</td><td>{{address1}}</td><td>{{address2}}</td><td>{{city}}</td><td>{{state}}</td><td>{{zip}}</td><td>{{isAttending}}</td><td>{{guests}}</td>
+        </tr>
     {{/each}}
+    </table>
 </div>
 
 </body>
