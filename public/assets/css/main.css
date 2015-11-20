@@ -1968,6 +1968,13 @@
 		.fullwidthmobile {
 			width: 100%;
 		}
+
+		.randomcaption {
+			font-size: 1.5em;
+		}
+		.desktopflex {
+			flex-flow:column nowrap;
+		}
 		/* Basic */
 
 			body, input, textarea, select {
@@ -2287,4 +2294,8 @@ html {
 
 #scroller li {
 	font-size: 1.5em;
+}
+
+.randomcaption {
+	font-size: 1.3em;
 }
