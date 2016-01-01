@@ -25,7 +25,7 @@ function sortUsersByApprovedMessages(user1, user2) {
     comparison++;
   }
   if (comparison === 0 ){
-    return user1.name.localCompare(user2.name);
+    return user1.name.localeCompare(user2.name);
   }
   return comparison;
 }
