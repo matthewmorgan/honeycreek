@@ -1,20 +1,19 @@
-var express = require('express');
-var router = express.Router();
-var superagent = require('superagent');
+const router = require('express').Router();
+const superagent = require('superagent');
 
-router.get('/', function(req, res, next){
+router.get('/', (req, res, next) => {
   superagent
       .get('http://honey-server.apps.dulcetsoftware.com/users')
       .end((err, result) => {
         if (err) throw err;
-        var users = result.body;
+        const users = result.body;
         users.sort(sortUsersByAttending);
         res.render('registrants', {users:users});
       })
 });
 
 
-var sortUsersByAttending = function(user1, user2){
+function sortUsersByAttending (user1, user2) {
   if (user1.isAttending === 'true'){
     if(user2.isAttending === 'false'){
       return 1;
@@ -23,7 +22,9 @@ var sortUsersByAttending = function(user1, user2){
     }
   }
   return -1;
-};
+}
 
 module.exports = router;
+
+
 

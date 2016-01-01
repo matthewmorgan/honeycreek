@@ -2,9 +2,8 @@ var userId = 'unknown';
 var isSubmitting = false;
 var serverAddress = 'http://honey-server.apps.dulcetsoftware.com';
 var sessionSubmittedImages = {};
-//var serverAddress = 'http://localhost:4000';
 
-var updatePhotoCaption = function (imageId, captionText) {
+function updatePhotoCaption(imageId, captionText) {
   var captionBox = $('.gallery-row').find('#caption-' + imageId);
   captionBox.fadeTo("fast", 0.33);
   var public_id = imageId.split('-')[1],
@@ -21,9 +20,9 @@ var updatePhotoCaption = function (imageId, captionText) {
         if (err) throw err;
         captionBox.fadeTo("fast", 1.0);
       })
-};
+}
 
-var deleteImage = function (imageId) {
+function deleteImage(imageId) {
   var public_id = imageId.split('-')[1];
 
   superagent
@@ -36,9 +35,9 @@ var deleteImage = function (imageId) {
           $('.gallery-row').fadeIn("fast");
         });
       })
-};
+}
 
-var buildArticle = function (imageHtml) {
+function buildArticle(imageHtml) {
   var imageId = 'img-' + (imageHtml.match("[a-z0-9]+\.(jpg|png|bmp|gif|tif)")[0].split('.')[0]);
   var galleryRowEl = $('.gallery-row');
   galleryRowEl.on('change', '#caption-' + imageId, function () {
@@ -56,9 +55,9 @@ var buildArticle = function (imageHtml) {
       '<textarea id="caption-' + imageId + '" style="resize:vertical" placeholder="add a caption!"></textarea>' +
       '<a id="delete-' + imageId + '" class="remove-shadow">delete this image</a>' +
       '</article></div>';
-};
+}
 
-var buildGallery = function (images, callback) {
+function buildGallery(images, callback) {
   var galleryRowEl = $('.gallery-row');
   galleryRowEl.off();
   var galleryHtml = Object.keys(images).reduce(function (acc, imageId) {
@@ -71,9 +70,9 @@ var buildGallery = function (images, callback) {
   if (callback !== null && typeof callback === 'function') {
     callback();
   }
-};
+}
 
-var attachUploadWidget = function () {
+function attachUploadWidget() {
   $('#upload_widget_opener').cloudinary_upload_widget(
       {
         cloud_name:               'hztzss4vs',
@@ -94,28 +93,28 @@ var attachUploadWidget = function () {
         buildGallery(sessionSubmittedImages);
       });
   $('.cloudinary-button').text('Upload an image!');
-};
+}
 
-var revealImageUploadButton = function (callback) {
+function revealImageUploadButton(callback) {
   $('.upload_widget_wrapper').removeClass('hidden');
   if (callback !== null && typeof callback === 'function') {
     callback();
   }
-};
+}
 
-var validateFormData = function () {
+function validateFormData() {
   var form = $('#contact-form');
   var nameFilledOut = form.find('#name').val().trim().match('[a-zA-Z]+');  //Safari 7 doesn't like w regex!
   var validEmail = validateEmail(form.find('#email').val().trim());
   return (nameFilledOut && validEmail);
-};
+}
 
-var validateEmail = function (email) {
+function validateEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
-};
+}
 
-var storeUserData = function (data, callback) {
+function storeUserData(data, callback) {
   data.email = data.email.toLowerCase();
   var affiliation = $('select').val();
   data.affiliation = affiliation !== 'Other' ? (affiliation || 'Friend') : data.otheraffiliation;
@@ -130,9 +129,9 @@ var storeUserData = function (data, callback) {
         callback(result);
       })
 
-};
+}
 
-var fetchThreeImages = function (callback) {
+function fetchThreeImages(callback) {
   superagent
       .get(serverAddress + '/cloudinary/randomimages/3')
       .end(function (err, result) {
@@ -144,24 +143,23 @@ var fetchThreeImages = function (callback) {
         }, []);
         callback(imageArray);
       })
-};
+}
 
 
-var showComments = function (comments){
+function showComments(comments) {
   //create UL using comments, attach to scroller
-  var commentHtml = JSON.parse(comments).reduce(function(list, comment){
-    var singleHtml = '<li>'+comment+'</li>';
-    list+=singleHtml;
-    return list;
-  },'<ul id="scroller">')+'</ul>';
+  var commentHtml = JSON.parse(comments).reduce(function (list, comment) {
+        list += '<li>' + comment + '</li>';
+        return list;
+      }, '<ul id="scroller">') + '</ul>';
   $('#scroll-container').html(commentHtml);
   $("#scroller").simplyScroll({
 
-    orientation:'vertical'
+    orientation: 'vertical'
   });
-};
+}
 
-var loadComments = function (showComments) {
+function loadComments(showComments) {
   superagent
       .get(serverAddress + '/comments/all')
       .end(function (err, result) {
@@ -169,14 +167,14 @@ var loadComments = function (showComments) {
         result = result.text;
         showComments(result);
       })
-};
+}
 
 
-var hideRegistrationForm = function () {
+function hideRegistrationForm() {
   $('.fadable').fadeOut();
-};
+}
 
-var attachFormHandler = function () {
+function attachFormHandler() {
   $('#form-submit-button').click(function (event) {
         event.preventDefault();
         if (!isSubmitting) {
@@ -203,18 +201,18 @@ var attachFormHandler = function () {
         }
       }
   );
-};
+}
 
 
-var displayImagesInGallery = function (displayedImageElements, displayedCaptions, imageArray) {
+function displayImagesInGallery(displayedImageElements, displayedCaptions, imageArray) {
   if (imageArray.length < 3) return false;
   imageArray.forEach(function (image, index) {
     displayOne(displayedImageElements, displayedCaptions, image, index);
   });
   $('.thumbnails').fadeTo("fast", 1.0);
-};
+}
 
-var displayOne = function (displayedImageElements, displayedCaptions, image, index) {
+function displayOne(displayedImageElements, displayedCaptions, image, index) {
   var caption = image.tags.filter(function (tag) {
         return tag.substring(0, 7) === 'caption';
       })[0].substring(8) || "";
@@ -223,19 +221,19 @@ var displayOne = function (displayedImageElements, displayedCaptions, image, ind
   var rightSizeUrl = partials[0] + 'upload/c_fill,h_335,w_335' + partials[1];
   $(displayedImageElements[index]).attr('src', rightSizeUrl);
   $(displayedCaptions[index]).text(caption)
-};
+}
 
-var attachGalleryExpander = function () {
+function attachGalleryExpander() {
 
-};
+}
 
-var showLogin = function () {
+function showLogin() {
   $(document).find('.modaloverlay').css('visibility', 'visible');
-};
+}
 
-var hideLogin = function () {
+function hideLogin() {
   $(document).find('.modaloverlay').css('visibility', 'hidden');
-};
+}
 
 $.fn.scrollView = function () {
   return this.each(function () {
@@ -246,7 +244,7 @@ $.fn.scrollView = function () {
 };
 
 
-var fetchUserIdByEmail = function () {
+function fetchUserIdByEmail() {
   var email = $('#login-email-input').val().trim().toLowerCase();
   if (validateEmail(email)) {
     superagent
@@ -271,7 +269,7 @@ var fetchUserIdByEmail = function () {
   } else {
     alert('Email does not appear to be valid!');
   }
-};
+}
 
 $(document).ready(function () {
   $('html').fadeTo("slow", 1.0);
@@ -288,7 +286,6 @@ $(document).ready(function () {
     showComments(comments);
   });
 
+  //TODO
   attachGalleryExpander();
-
-
 });

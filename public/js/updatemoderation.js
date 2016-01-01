@@ -1,18 +1,14 @@
-'use strict';
-
-var isSubmitting = false;
-
-var updateComments = function(comments){
+function updateComments(comments){
   superagent
   .put('http://honey-server.apps.dulcetsoftware.com/comments')
   .send(comments)
-  .end(function(err, result){
+  .end(function(err){
         if (err) throw err;
         alert('Comments updated.');
       })
-};
+}
 
-var attachFormHandler = function () {
+function attachFormHandler() {
   $('#save-results').click(function (event) {
     event.preventDefault();
 
@@ -28,7 +24,7 @@ var attachFormHandler = function () {
     console.log(comments);
     updateComments(comments);
   })
-};
+}
 
 $('document').ready(function () {
   attachFormHandler();

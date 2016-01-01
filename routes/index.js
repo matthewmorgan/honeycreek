@@ -1,10 +1,6 @@
-var express = require('express');
-var router = express.Router();
+const router = require('express').Router();
 
-
-
-/* GET home page. */
-router.all('/', function(req, res, next) {
+router.all('/', (req, res, next) => {
   res.render('index');
 });
 
