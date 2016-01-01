@@ -15,13 +15,17 @@ router.get('/', (req, res) => {
 
 function sortUsersByApprovedMessages(user1, user2) {
   //unapproved before approved
-  if (user1.messageApproved && !user2.messageApproved) {
-    return 1;
-  } else if (user1.messageApproved) {
-    return 0;
-  } else {
-    return -1;
+  let comparison = 0;
+  if (user2.messageApproved) {
+    comparison--;
   }
+  if (user1.messageApproved){
+    comparison++;
+  }
+  if (comparison === 0 ){
+    return user1.name.localCompare(user2.name);
+  }
+  return comparison;
 }
 
 module.exports = router;
