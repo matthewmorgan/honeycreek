@@ -213,9 +213,9 @@ function displayImagesInGallery(displayedImageElements, displayedCaptions, image
 }
 
 function displayOne(displayedImageElements, displayedCaptions, image, index) {
-  var caption = image.tags.filter(function (tag) {
-        return (tag.substring(0, 7) || 'no-caption') === 'caption';
-      })[0].substring(8) || "";
+  var caption = (image.tags.filter(function (tag) {
+        return tag.substring(0, 7) === 'caption';
+      })[0] || "       ").substring(8);
 
   var partials = image.url.split('upload');
   var rightSizeUrl = partials[0] + 'upload/c_fill,h_335,w_335' + partials[1];
