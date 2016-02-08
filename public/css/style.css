@@ -11,4 +11,7 @@ a {
   visibility: hidden;
 }
 
-
+.simply-scroll .simply-scroll-list li {
+  min-height: 100px;
+  height: auto;
+}
