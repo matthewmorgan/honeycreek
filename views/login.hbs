@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+
+<link href="../css/login.css" rel="stylesheet"/>
+
+<div class="loginoverlay">
+    <div id="loginpane">
+        <h3>Log in with your administrator account</h3>
+        <div id="login-input-wrapper">
+            <input id="login-email-input" type="email" placeholder="your email address">
+            <input id="login-password-input" type="password" placeholder="your password">
+            <div id="login-message"></div>
+        </div>
+        <div id="login-control-buttons">
+            <button id="cancel-login" class="eebtn" onclick="location='/'">Cancel</button>
+            <button id="submit-login" class="eebtn blue" onclick="processLogin()">Log In</button>
+        </div>
+    </div>
+</div>
+
+<script src="lib/superagent.js"></script>
+<script src="js/processlogin.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="lib/Duo-Web-v1.js"></script>

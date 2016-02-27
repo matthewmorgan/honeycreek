@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<iframe id="duo_iframe" frameborder="0"></iframe>
+<style>
+    #duo_iframe {
+        width: 100%;
+        min-width: 304px;
+        max-width: 620px;
+        height: 330px;
+    }
+</style>
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="lib/Duo-Web-v1.js"></script>
+<script>
+    Duo.init({
+        'host': 'api-b1aedea8.duosecurity.com',
+        'sig_request': {{sig_request}},
+        'post_action': {{post_action}}
+    });
+</script>

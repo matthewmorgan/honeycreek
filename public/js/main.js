@@ -287,5 +287,5 @@ $(document).ready(function () {
   });
 
   //TODO
-  attachGalleryExpander();
+  //attachGalleryExpander();
 });

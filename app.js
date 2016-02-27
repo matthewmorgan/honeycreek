@@ -9,6 +9,8 @@ const fs = require ('fs');
 const env = process.env.NODE_ENV || 'development';
 
 const index = require('./routes/index');
+const login = require('./routes/login');
+const twofactor = require('./routes/twofactor');
 const moderate = require('./routes/moderate');
 const registrants = require('./routes/registrants');
 
@@ -29,6 +31,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', cors(), index);
+app.use('/login', cors(), login);
+app.use('/twofactor', cors(), twofactor);
 app.use('/moderate', cors(), moderate);
 app.use('/registrants', cors(), registrants);
 
