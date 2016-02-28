@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
           res.render('registrants', {users: users});
         })
   } else {
-    res.send(403);
+    res.redirect('/login');
   }
 });
 

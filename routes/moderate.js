@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
           res.render('moderate', {users: users});
         })
   } else {
-    res.send(403);
+    res.redirect('/login');
   }
 
 });
