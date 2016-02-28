@@ -13,7 +13,7 @@ router.post('/verify', (req, res, next) => {
   const sig_response = req.body.sig_response;
   const authenticated_username = Duo.verify_response(ikey, skey, akey, sig_response);
   if (authenticated_username !== null) {
-    res.cookie('authenticated_username', authenticated_username);
+    res.cookie('authenticated_username', authenticated_username,{domain:'party.honeycreekschool.org'});
     res.redirect('/moderate');
   } else {
     res.send(403);
