@@ -1,15 +1,11 @@
+.duo-container {
+    display: flex;
+    justify-content: center;
+}
+
 #duo_iframe {
     width: 100%;
     min-width: 304px;
     max-width: 620px;
     height: 330px;
-}
-
-@media screen and (min-width: 737px) {
-    .duo-container {
-        display: flex;
-        justify-content: center;
-        top: 20%;
-        position: fixed;
-    }
 }
