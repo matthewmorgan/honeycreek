@@ -1,6 +1,8 @@
 .duo-container {
     display: flex;
     justify-content: center;
+    top: 20%;
+    position: fixed;
 }
 
 #duo_iframe {
