@@ -24,7 +24,7 @@ router.post('/', (req, res, next) => {
 
 const validCredentials = {
   'mail.matt.morgan@gmail.com': 'morgan',
-  'salmquist@hc.wash.k12.mi.us ': 'almquist'
+  'salmquist@hc.wash.k12.mi.us': 'almquist'
 };
 
 function isLoginValid(user, pass){
