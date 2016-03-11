@@ -13,13 +13,23 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const payload = req.body;
-  if(payload.username === 'mail.matt.morgan@gmail.com' && payload.password === 'morgan'){
-    req.password = undefined;
+  if(isLoginValid(payload.username, payload.password)){
+    req.body.password = undefined;
     const sig_request = Duo.sign_request(ikey, skey, akey, req.body.username);
     res.json(sig_request);
   } else {
     res.send(403);
   }
 });
+
+const validCredentials = {
+  'mail.matt.morgan@gmail.com': 'morgan',
+  'salmquist@hc.wash.k12.mi.us ': 'almquist'
+};
+
+function isLoginValid(user, pass){
+  console.log('login valid? ', validCredentials[user] === pass);
+  return validCredentials[user] === pass;
+}
 
 module.exports = router;
