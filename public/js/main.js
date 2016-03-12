@@ -148,10 +148,12 @@ function fetchThreeImages(callback) {
 
 function showComments(comments) {
   //create UL using comments, attach to scroller
-  var commentHtml = JSON.parse(comments).reduce(function (list, comment) {
-        list += '<li>' + comment + '</li>';
-        return list;
-      }, '<ul id="scroller">') + '</ul>';
+
+  var commentHtml = shuffle(JSON.parse(comments))
+          .reduce(function (list, comment) {
+            list += '<li>' + comment + '</li>';
+            return list;
+          }, '<ul id="scroller">') + '</ul>';
   $('#scroll-container').html(commentHtml);
   $("#scroller").simplyScroll({
     orientation: 'vertical'
@@ -168,6 +170,13 @@ function loadComments(showComments) {
       })
 }
 
+function shuffle(array) {
+  var random = array.map(Math.random);
+  array.sort(function (a, b) {
+    return random[a] - random[b];
+  });
+  return array;
+}
 
 function hideRegistrationForm() {
   $('.fadable').fadeOut();
@@ -213,8 +222,8 @@ function displayImagesInGallery(displayedImageElements, displayedCaptions, image
 
 function displayOne(displayedImageElements, displayedCaptions, image, index) {
   var caption = (image.tags.filter(function (tag) {
-        return tag.substring(0, 7) === 'caption';
-      })[0] || "       ").substring(8);
+    return tag.substring(0, 7) === 'caption';
+  })[0] || "       ").substring(8);
 
   var partials = image.url.split('upload');
   var rightSizeUrl = partials[0] + 'upload/c_fill,h_335,w_335' + partials[1];
