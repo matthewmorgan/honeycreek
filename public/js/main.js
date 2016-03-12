@@ -169,6 +169,7 @@ function shuffle(array) {
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
+  return array;
 }
 
 function loadComments(showComments) {
@@ -177,7 +178,7 @@ function loadComments(showComments) {
       .end(function (err, result) {
         if (err) throw err;
         result = result.text;
-        shuffle(result);
+        result = shuffle(result);
         showComments(result);
       })
 }
