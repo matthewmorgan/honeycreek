@@ -154,9 +154,21 @@ function showComments(comments) {
       }, '<ul id="scroller">') + '</ul>';
   $('#scroll-container').html(commentHtml);
   $("#scroller").simplyScroll({
-
     orientation: 'vertical'
   });
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 }
 
 function loadComments(showComments) {
@@ -165,6 +177,7 @@ function loadComments(showComments) {
       .end(function (err, result) {
         if (err) throw err;
         result = result.text;
+        shuffle(result);
         showComments(result);
       })
 }
