@@ -170,6 +170,30 @@ function loadComments(showComments) {
       })
 }
 
+function showAttendees(attendees) {
+  //create UL using comments, attach to scroller
+  var personHtml = shuffle(JSON.parse(attendees))
+          .reduce(function (list, person) {
+            list += '<li>' + person + '</li>';
+            return list;
+          }, '<ul id="scroller-2">') + '</ul>';
+  $('#scroll-container-2').html(personHtml);
+  $("#scroller-2").simplyScroll({
+    orientation: 'vertical'
+  });
+}
+
+function loadAttendees(showAttendees) {
+  superagent
+      .get(serverAddress + '/users/attending')
+      .end(function (err, result) {
+        if (err) throw err;
+        result = result.text;
+        showAttendees(result);
+      })
+}
+
+
 function shuffle(array) {
   var random = array.map(Math.random);
   array.sort(function (a, b) {
@@ -292,6 +316,10 @@ $(document).ready(function () {
 
   loadComments(function (comments) {
     showComments(comments);
+  });
+
+  loadAttendees(function (people) {
+    showAttendees(people);
   });
 
   //TODO

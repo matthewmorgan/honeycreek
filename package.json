@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "engines": {
-    "node": "5.0"
+    "node": "5.9"
   },
   "dependencies": {
     "forever": "^0.15.1",
