@@ -24,7 +24,7 @@ a {
   /*height: 8em;*/
   margin: 1em auto;
   overflow: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
   /*max-height: 200px;*/
   background: white;
   position: relative;
