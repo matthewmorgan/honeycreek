@@ -18,3 +18,34 @@ a {
   min-height: 2000px;
   height: auto;
 }
+
+.vertical-scroll-container {
+  width: 18em;
+  /*height: 8em;*/
+  margin: 1em auto;
+  overflow: hidden;
+  overflow-y: scroll;
+  /*max-height: 200px;*/
+  background: white;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.marquee {
+  top: 6em;
+  position: relative;
+  height: 200px;
+  box-sizing: border-box;
+  animation: marquee 30s linear infinite;
+  font-size: 1.2em;
+}
+
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Make it move! */
+@keyframes marquee {
+  0%   { top:   0px }
+  100% { top: -1800px }
+}

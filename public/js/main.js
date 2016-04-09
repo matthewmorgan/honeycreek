@@ -170,18 +170,15 @@ function loadComments(showComments) {
       })
 }
 
-// function showAttendees(attendees) {
-//   //create UL using comments, attach to scroller
-//   var personHtml = shuffle(JSON.parse(attendees))
-//           .reduce(function (list, person) {
-//             list += '<li>' + person + '</li>';
-//             return list;
-//           }, '<ul id="scroller-2">') + '</ul>';
-//   $('#scroll-container-2').html(personHtml);
-//   $("#scroller-2").simplyScroll({
-//     orientation: 'vertical'
-//   });
-// }
+function showAttendees(attendees) {
+  //create UL using comments, attach to scroller
+  var personHtml = shuffle(JSON.parse(attendees))
+          .reduce(function (list, person) {
+            list += '<li>' + person + '</li>';
+            return list;
+          }, '<ul class="marquee" id="scroller-2">') + '</ul>';
+  $('#attendee-list').html(personHtml);
+}
 
 function loadAttendees(showAttendees) {
   superagent
@@ -318,9 +315,9 @@ $(document).ready(function () {
     showComments(comments);
   });
 
-  // loadAttendees(function (people) {
-  //   showAttendees(people);
-  // });
+  loadAttendees(function (people) {
+    showAttendees(people);
+  });
 
   //TODO
   //attachGalleryExpander();
