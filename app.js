@@ -13,6 +13,7 @@ const login = require('./routes/login');
 const twofactor = require('./routes/twofactor');
 const moderate = require('./routes/moderate');
 const registrants = require('./routes/registrants');
+const gallery = require('./routes/gallery');
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use('/login', cors(), login);
 app.use('/twofactor', cors(), twofactor);
 app.use('/moderate', cors(), moderate);
 app.use('/registrants', cors(), registrants);
+app.use('/gallery', cors(), gallery);
 
 
 // catch 404 and forward to error handler
