@@ -248,8 +248,14 @@ function displayOne(displayedImageElements, displayedCaptions, image, index) {
 
   var partials = image.url.split('upload');
   var rightSizeUrl = partials[0] + 'upload/c_fill,h_335,w_335' + partials[1];
+
   $(displayedImageElements[index]).attr('src', rightSizeUrl);
+  $(displayedImageElements[index]).parent().attr('href', '/gallery/'+getImageName(partials[1]));
   $(displayedCaptions[index]).text(caption)
+}
+
+function getImageName(partial){
+  return partial.split('/')[2].split('.')[0];
 }
 
 function attachGalleryExpander() {

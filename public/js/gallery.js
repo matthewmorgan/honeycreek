@@ -3,27 +3,13 @@ $(document).ready(function () {
 
   var pswpElement = document.querySelectorAll('.pswp')[0];
 
-// build items array
-//var items = [
-//  {
-//    src: 'https://placekitten.com/600/400',
-//    w: 600,
-//    h: 400
-//  },
-//  {
-//    src: 'https://placekitten.com/1200/900',
-//    w: 1200,
-//    h: 900
-//  }
-//];
-
-
-  function initGallery(images) {
+  function initGallery(images, startingImageIndex) {
     // define options (if needed)
+    var index = startingImageIndex || 0;
     var options = {
       // optionName: 'option value'
       // for example:
-      index: 0 // start at first slide
+      index: index //0 is first slide
     };
 
 // Initializes and opens PhotoSwipe
@@ -38,6 +24,7 @@ $(document).ready(function () {
           if (err) throw err;
           result = JSON.parse(result.text);
           console.log(result);
+          var imageNames = [];
           var imageArray = result.reduce(function (acc, resource) {
             acc.push({
               src:   resource.secure_url,
@@ -45,10 +32,28 @@ $(document).ready(function () {
               h:     600,
               title: extractCaption(resource)
             });
+            imageNames.push(extractName(resource.secure_url));
             return acc;
           }, []);
-          callback(imageArray);
+          var referringImageName = getReferringImageName();
+          console.log('referringImageName', referringImageName);
+          var referringImageId = getReferringImageIndex(referringImageName, imageNames);
+          console.log('referringImageId', referringImageId);
+          callback(imageArray, referringImageId);
         })
+  }
+
+  function extractName(url){
+    var frags = url.split('/');
+    return frags[frags.length-1].split('.')[0];
+  }
+
+  function getReferringImageIndex(name, names){
+    return names.indexOf(name) >= 0 ? names.indexOf(name) : 0;
+  }
+
+  function getReferringImageName(){
+    return document.getElementById('referrer').dataset['name'] || '';
   }
 
   fetchAllImages(initGallery);
