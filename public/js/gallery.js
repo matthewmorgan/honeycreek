@@ -42,7 +42,7 @@ function deriveBig(url){
 function extractCaption(image) {
   var tags = image['tags'];
   var caption = '';
-  tags.forEach((tag) => {
+  tags.forEach(function(tag) {
     if (tag.match('^caption-')) {
       caption = tag.split('').splice(8).join('');
     }
