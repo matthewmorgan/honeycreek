@@ -250,7 +250,7 @@ function displayOne(displayedImageElements, displayedCaptions, image, index) {
   var rightSizeUrl = partials[0] + 'upload/c_fill,h_335,w_335' + partials[1];
 
   $(displayedImageElements[index]).attr('src', rightSizeUrl);
-  $(displayedImageElements[index]).parent().attr('href', '/gallery/'+getImageName(partials[1]));
+  //$(displayedImageElements[index]).parent().attr('href', '/gallery/'+getImageName(partials[1]));
   $(displayedCaptions[index]).text(caption)
 }
 
