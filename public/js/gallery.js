@@ -53,27 +53,16 @@ function extractCaption(image) {
 
 $(document).ready(function () {
 
-  //var data = [
-  //  {
-  //    image: 'img1.jpg',
-  //    thumb: 'thumb1.jpg',
-  //    big: 'big1.jpg',
-  //    title: 'my first image',
-  //    description: 'Lorem ipsum caption',
-  //    link: 'http://domain.com'
-  //  },
-  //  {
-  //    video: 'http://www.youtube.com/watch?v=GCZrz8siv4Q',
-  //    title: 'my second image',
-  //    description: 'Another caption'
-  //  }
-  //];
-
   function initGallery(data){
     Galleria.loadTheme('/js/galleria-classic-min.js');
-    Galleria.run('.galleria', {
-      dataSource: data
-    });
+    const options = {
+      dataSource: data,
+      show: Math.floor(Math.random()*Object.keys(data).length)  //pick a random starting image
+    };
+    if (document.autoplay) {
+      options.autoplay = 10000;
+    }
+    Galleria.run('.galleria', options);
   }
 
   fetchAllImages(initGallery);
